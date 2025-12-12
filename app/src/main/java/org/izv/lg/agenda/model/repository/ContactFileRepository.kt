@@ -39,7 +39,7 @@ class ContactFileRepository(private val context: Context) {
             }
             val contacts = mutableListOf<Contact>()
 
-            // Leemos
+            // Leemo
             file.readLines().forEach { line ->
                 val parts = line.split(";")
                 try {
