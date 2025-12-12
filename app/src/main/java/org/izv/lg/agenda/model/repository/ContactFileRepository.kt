@@ -15,12 +15,12 @@ class ContactFileRepository(private val context: Context) {
 
 
 
-    //Obtenemos el archivo fisico
+    //Leemos el archivo
     private fun getFile(): File {
         return File(context.filesDir, fileName)
     }
 
-    //Pasamos la lista de objetos a texto dividido por ;
+    //Le asiganamos cada atributo
     private fun saveListToFile(contacts: List<Contact>) {
         val file = getFile()
         var data = ""
@@ -30,7 +30,7 @@ class ContactFileRepository(private val context: Context) {
         file.writeText(data)
     }
 
-    //Corrutinas: metodos que se ejecutan en segundo plano para no afectar a la IU
+    //Corrutinas
     suspend fun readContacts(): List<Contact> {
         return withContext(Dispatchers.IO) {
             val file = getFile()
@@ -39,9 +39,9 @@ class ContactFileRepository(private val context: Context) {
             }
             val contacts = mutableListOf<Contact>()
 
-            // Leemos línea a línea
+            // Leemos
             file.readLines().forEach { line ->
-                val parts = line.split(";") // Separamos por punto y coma
+                val parts = line.split(";")
                 try {
                     val id = parts[0].toInt()
                     val name = parts[1]

@@ -32,8 +32,12 @@ fun EditContact(
     innerPadding: PaddingValues
 ) {
     val contact = viewModel.currentContact
-    var name by remember { mutableStateOf("") }
-    var phone by remember { mutableStateOf("") }
+    if (contact == null) {
+        navController.popBackStack()
+        return
+    }
+    var name by remember { mutableStateOf(contact.name) }
+    var phone by remember { mutableStateOf(contact.phone) }
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -47,9 +51,12 @@ fun EditContact(
         )
         OutlinedTextField(
             value = name,
-            onValueChange = { name = it },
+            onValueChange = { input ->
+                name = input.replace(";", "")
+            },
             label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
         OutlinedTextField(
             value = phone,

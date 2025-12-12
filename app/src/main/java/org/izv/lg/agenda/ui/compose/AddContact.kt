@@ -46,9 +46,12 @@ fun AddContact(
         )
         OutlinedTextField(
             value = name,
-            onValueChange = { name = it },
+            onValueChange = { input ->
+                name = input.replace(";", "")
+            },
             label = { Text("Name") },
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
+            singleLine = true
         )
         OutlinedTextField(
             value = phone,
